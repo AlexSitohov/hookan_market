@@ -1,0 +1,25 @@
+{% extends "shop/base.html" %}
+
+{% block title %}Заказ{% endblock %}
+
+{% block content %}
+{% if form.as_p %}
+    <div class="order-info">
+        <h3>Ваш заказ</h3>
+        <ul>
+            {% for item in cart %}
+                <li>
+                    {{ item.quantity }} x {{ item.product.name }}
+                    <span>{{ item.total_price }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <p class="sum">Всего: {{ cart.get_total_price }}</p>
+    </div>
+    <form action="." method="post" class="order-form">
+        {{ form.as_p }}
+        <p><input type="submit" value="Отправить"></p>
+        {% csrf_token %}
+    </form>
+{% endif %}
+{% endblock %}

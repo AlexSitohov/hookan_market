@@ -1,0 +1,42 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+    <div id="sidebar">
+    </div>
+    <div id="main" class="product-list">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'main' %}">Главная</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+  </ol>
+</nav>        <div class="wrapper">
+        {% for product in products %}
+
+            <div class="item">
+                <a href="{{ product.get_absolute_url }}">
+                    <img src="{{ product.image.url }}" style="width:200px;">
+                </a>
+                <br>
+                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                <p class="price">{{ product.price }}</p>
+<form action="{% url 'cart_add' product.id %}" method="post">
+    {{ cart_product_form }}
+    {% csrf_token %}
+    <input type="submit" value="Заказать">
+</form>
+            </div>
+        {% endfor %}
+            </div>
+    </div>
+
+
+    <nav aria-label="breadcrumb">
+  <ol class="breadcrumb" >
+    <li class="breadcrumb-item"><a href="{% url 'main' %}">Главная</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+  </ol>
+</nav>
+
+
+
+{% endblock %}

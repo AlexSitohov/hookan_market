@@ -1,0 +1,24 @@
+{% extends "shop/base.html" %}
+<!!!DOCTYPE html>
+
+
+{% block content %}
+        <h1 style="text-align:center;">Категории</h1>
+    <div class="wrapper">
+{% for i in categories %}
+   <div class="category item" >
+       <a href="{{ i.get_absolute_url }}" class=""><img  src="{{i.image.url}}" class="card-img-top" style="width:200px; text-align:center;" alt="..."></a>
+
+  <div class="card-body">
+    <h5 class="card-title" style="text-align:center;">{{i}}</h5>
+
+  </div>
+</div>
+
+
+
+
+{% endfor %}
+        </div>
+
+{% endblock %}

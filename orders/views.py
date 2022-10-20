@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -27,6 +28,7 @@ def order_create(request):
                         product_to_change.save()
 
                 except:
+                    messages.success(request,'В наличии нет ')
                     cart.clear()
                     form.clean()
                     return redirect('order_create')

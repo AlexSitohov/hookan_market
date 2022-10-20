@@ -25,7 +25,8 @@
             <p class="price">{{ product.price }}</p>
             <form action="{% url 'cart_add' product.id %}" method="post">
                 {% csrf_token %}
-                {{cart_product_form}}
+                <input type="number" name="quantity" value="1" min="1" max="{{product.stock}}" required  id="id_quantity">
+                <input type="hidden" name="update" value="False" id="id_update">
                 <input type="submit" value="Заказать">
             </form>
         </div>

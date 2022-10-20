@@ -12,6 +12,8 @@ def main(request):
 def category_view(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     products = Product.objects.filter(category=category, available=True)
+    if request.method == 'POST':
+        return redirect('category', category.slug)
     cart_product_form = CartAddProductForm()
     context = {'category': category,
                'products': products,

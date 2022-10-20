@@ -16,6 +16,21 @@ def order_create(request):
             order = form.save()
 
             for item in cart:
+                product = item['product']
+                quantity = item['quantity']
+                product_to_change = Product.objects.get(name=product.name)
+                try:
+                    product_to_change.stock -= quantity
+                    product_to_change.save()
+                    if product_to_change.stock == 0:
+                        product_to_change.available = False
+                        product_to_change.save()
+
+                except:
+                    cart.clear()
+                    form.clean()
+                    return redirect('order_create')
+
                 OrderItem.objects.create(order=order,
                                          product=item['product'],
                                          price=item['price'],

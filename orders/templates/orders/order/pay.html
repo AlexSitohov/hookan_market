@@ -3,7 +3,7 @@
 {% block title %}Заказ{% endblock %}
 
 {% block content %}
-{% if form.as_p %}
+
 <div class="order-info">
     <h3>Ваш заказ</h3>
     <ul>
@@ -17,12 +17,5 @@
     <p class="sum">Всего: {{ cart.get_total_price }}</p>
 </div>
 
-<form action="." method="post" class="order-form">
-    {{ form.as_p }}
-    <p><input type="submit" name="l" value="Оплатить при получении"></p>
-    <p><input type="submit" name="n" value="Перейти к оплате"></p>
-    {% csrf_token %}
 
-</form>
-{% endif %}
 {% endblock %}

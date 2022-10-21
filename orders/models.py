@@ -23,17 +23,17 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items', null = True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name='items', null = True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='order_items')
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField('Количество', default=1)
 
     def __str__(self):
-        return f'Заказ {str(self.order.id)}'
+        return f'{self.product} из заказа№ {str(self.order.id)}'
 
     def get_cost(self):
         return self.price * self.quantity
 
     class Meta:
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'

@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django.conf import settings
+from django.contrib import messages
 
 from shop.models import Product
 
@@ -23,14 +24,16 @@ class Cart(object):
         Добавить продукт в корзину или обновить его количество.
         """
         product_id = str(product.id)
+        product_db = Product.objects.get(id=product_id)
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 0,
                                      'price': str(product.price)}
-        if update_quantity:
-            self.cart[product_id]['quantity'] = quantity
-        else:
-            self.cart[product_id]['quantity'] += quantity
-        self.save()
+        if self.cart[product_id]['quantity'] < product_db.stock:
+            if update_quantity:
+                self.cart[product_id]['quantity'] = quantity
+            else:
+                self.cart[product_id]['quantity'] += quantity
+            self.save()
 
     def save(self):
         # Обновление сессии cart

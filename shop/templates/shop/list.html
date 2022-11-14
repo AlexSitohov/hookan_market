@@ -14,7 +14,7 @@
         {% for product in products %}
 
         <div class="item">
-            {% if product.stock < 10 %}
+            {% if product.stock < 20 %}
             Осталось: {{product.stock}}
             {% endif %}
             <a href="{{ product.get_absolute_url }}">

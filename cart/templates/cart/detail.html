@@ -20,6 +20,7 @@ Your shopping cart
     {% for item in cart %}
     {% with product=item.product %}
     <tr>
+        <td>{{ forloop.counter }}</td>
         <td>
             <a href="{{ product.get_absolute_url }}">
                 <img src="
@@ -27,21 +28,24 @@ Your shopping cart
                                     {{ product.image.url }}
                                 {% else %}
                                     {% static 'img/no_image.png' %}
-                                {% endif %}" style="width:250px;">
+                                {% endif %}" style="width:250px; height:100%;">
             </a>
         </td>
+
         <td>{{ product.name }}</td>
-        <td>Количество: {{ item.quantity }}</td>
+
         <td><a href="{% url 'cart_remove' product.id%}" style="margin-right:20px;">Удалить</a></td>
         <td><a href="{% url 'cart_clear' %}" style="margin-right:20px;">Очистить корзину</a></td>
+        <td>Количество: {{ item.quantity }}</td>
         <td class="num">{{ item.price }}</td>
 
     </tr>
     {% endwith %}
     {% endfor %}
+
     <tr class="total">
         <td>Всего:</td>
-        <td colspan="4"></td>
+        <td colspan="5"></td>
         <td class="num">{{ cart.get_total_price }}</td>
     </tr>
     </tbody>
